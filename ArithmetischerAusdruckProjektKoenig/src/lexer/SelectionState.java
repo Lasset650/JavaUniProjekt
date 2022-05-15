@@ -13,7 +13,10 @@ public class SelectionState implements LexerState {
 			lexer.setState(new DigitState());
 			return;
 		}
-		//TODO: Setze OperaterState
+		if (c == '+' || c == '*') {
+			lexer.setState(new OperatorState());
+			return;
+		}
 	}
 
 }
