@@ -36,7 +36,7 @@ public class LexerImpl implements Lexer {
 	}
 	
 	/**
-	 * Ergänzt ein weiiteres Token in der TOken Liste
+	 * Ergänzt ein weiteres Token in der Token Liste
 	 */
 	public void addToken(Token t) {
 		this.currentResult.add(t);
