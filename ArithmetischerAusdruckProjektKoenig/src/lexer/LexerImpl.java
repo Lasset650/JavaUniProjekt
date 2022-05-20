@@ -6,6 +6,7 @@ import java.util.List;
 import tokens.Token;
 
 public class LexerImpl implements Lexer {
+	
 	private String currentExpression;
 	private List<Token> currentResult;
 	private LexerState state;
@@ -16,9 +17,8 @@ public class LexerImpl implements Lexer {
 	}
 	
 	@Override
-	public List<Token> toTokenSequence(String expr) {
+	public List<Token> toTokenSequence(String expr) throws UnbekanntCExeption {
 		this.currentExpression = expr;
-		// TODO Bearbeitung mittels State-Objekten
 		while(!this.currentExpression.isEmpty()) 
 			this.state.scan(this.currentExpression.charAt(0), this);		
 		return this.currentResult;
@@ -31,8 +31,9 @@ public class LexerImpl implements Lexer {
 	 * Entfernt aus currentExpression das erste Zeichen
 	 */
 	public void skip() {
-		//TODOD: Maßnahme, wenn this.currentExpression leer ist
-		this.currentExpression = this.currentExpression.substring(1);
+		if (!currentExpression.isEmpty()) {
+			this.currentExpression = this.currentExpression.substring(1);
+		}
 	}
 	
 	/**
@@ -40,6 +41,17 @@ public class LexerImpl implements Lexer {
 	 */
 	public void addToken(Token t) {
 		this.currentResult.add(t);
+	}
+	public boolean isEmpty() {
+		return this.currentExpression.isEmpty();
+	}
+	public String toString(List<Token> tokenList) {
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < tokenList.size(); i++) {
+			builder.append(tokenList.toString().charAt(i));
+		}
+		String string = builder.toString();
+		return string;
 	}
 
 }

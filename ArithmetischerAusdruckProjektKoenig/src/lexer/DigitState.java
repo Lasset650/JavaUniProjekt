@@ -14,6 +14,10 @@ public class DigitState implements LexerState {
 		if(Character.isDigit(c)) {
 			this.collectedDigits = this.collectedDigits + c;
 			lexer.skip();
+			if (lexer.isEmpty()) {
+				lexer.addToken(new NaturalNumber(Integer.parseInt(this.collectedDigits)));
+				lexer.setState(new SelectionState());
+			}
 		}else {
 			lexer.addToken(new NaturalNumber(Integer.parseInt(this.collectedDigits)));
 			lexer.setState(new SelectionState());
